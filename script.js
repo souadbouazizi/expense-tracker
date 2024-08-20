@@ -58,19 +58,24 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('');
 
-        // Add event listeners to the remove buttons
-        document.querySelectorAll('.remove').forEach(button => {
-            button.addEventListener('click', function () {
-                const row = this.closest('tr');
-                const index = row.dataset.index;
-                const confirmation = confirm('Are you sure you want to remove this expense?');
-                if (confirmation) {
-                    expenses.splice(index, 1); // Remove the expense from the array
-                    renderExpenses(); // Re-render the list of expenses
-                    alert('This expense has been removed.');
-                }
+       // Add event listeners to the remove buttons
+            document.querySelectorAll(".remove").forEach((button) => {
+                button.addEventListener("click", function () {
+                    const row = this.closest("tr");
+                    const index = row.dataset.index;
+                    const confirmation = confirm(
+                        "are you sur to remove this row"
+                    );
+                    if (confirmation) {
+                        expenses.splice(index, 1); // Remove the expense from the array
+                        row.remove();
+                        renderExpenses(); // Re-render the list of expenses
+                        setTimeout(() => {
+                            alert("this is remove"); // Show alert after the deletion and rendering
+                        }, 0);
+                    }
+                });
             });
-        });
 
         // Calculate and display the total expenses
         const total = filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0);
